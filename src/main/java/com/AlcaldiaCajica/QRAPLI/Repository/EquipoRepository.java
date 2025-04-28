@@ -2,10 +2,11 @@ package com.AlcaldiaCajica.QRAPLI.Repository;
 
 import com.AlcaldiaCajica.QRAPLI.Model.Equipo;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface EquipoRepository {
+
 
 
     @Repository
@@ -35,4 +36,4 @@ public interface EquipoRepository {
         // Filtrar por tipo, estado y marca
         List<Equipo> findByTipoEquipo_IdAndEstado_IdAndMarcaPortatil_Id(Long tipoId, Long estadoId, Long marcaId);
     }
-}
+

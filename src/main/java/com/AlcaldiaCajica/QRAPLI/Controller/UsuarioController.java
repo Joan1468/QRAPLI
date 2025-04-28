@@ -13,14 +13,7 @@ public class UsuarioController {
     @GetMapping(path = "/")
     public List<Usuario> getNames() {
         return List.of(
-                new Usuario(
-                        2541L,
-                        "Juan Nunez",
-                        "jfnunez",
-                        "1234", // Esto es solo de prueba, luego debe ir encriptado
-                        "jfnunez@ucundinamarca.edu.co",
-                        "Funcionario de planta"
-                )
+
         );
     }
 }

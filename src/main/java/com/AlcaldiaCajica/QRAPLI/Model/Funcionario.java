@@ -1,11 +1,7 @@
 package com.AlcaldiaCajica.QRAPLI.Model;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.*;
-
 import java.util.List;
 
 @Entity
@@ -14,20 +10,22 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Table(name = "funcionario") // Mejor en minúscula para Supabase
 public class Funcionario {
+
     @Id
-    private int id_funcionario;
-    private String Area;
+    private int id; // Estándar de convención -> ID sencillo
+
+    @Column(nullable = false, length = 100)
+    private String area; // Nombre del área en la que trabaja el funcionario
+
+    // Relaciones
+    @OneToMany(mappedBy = "funcionario", cascade = CascadeType.ALL)
+    private List<Inventarios> inventarios;
 
     @OneToMany(mappedBy = "funcionario", cascade = CascadeType.ALL)
-    private List<Inventarios> Inventarios;
-
-    // Relación con Asignación (uno a muchos)
-    @OneToMany(mappedBy = "funcionario", cascade = CascadeType.ALL)
-    private List<asignacion> asignaciones;
+    private List<Asignacion> asignaciones;
 
     @OneToMany(mappedBy = "funcionario", cascade = CascadeType.ALL)
-    private List<historial> historial;
-
-
+    private List<Historial> historiales; // Nombre más correcto en plural
 }

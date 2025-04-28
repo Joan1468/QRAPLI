@@ -1,8 +1,6 @@
 package com.AlcaldiaCajica.QRAPLI.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -13,7 +11,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class historial {
+@Table(name = "historial")
+public class Historial {
+    @Id
     private Long id;
     private LocalDate fecha_Asignacion;
 

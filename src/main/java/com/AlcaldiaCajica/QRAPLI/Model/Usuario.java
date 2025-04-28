@@ -1,42 +1,30 @@
 package com.AlcaldiaCajica.QRAPLI.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
-import lombok.*;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
+@Table(name = "usuario")
 public class Usuario {
+    @Id
     private Long id;
-    private String nombre;
-    private String username;
+
+    @Column(nullable = false, unique = true, length = 100)
+    private String email;
+
+    @Column(nullable = false, length = 255)
     private String password;
-    private String correo;
-    private String rol;
-    @ManyToOne
-    @JoinColumn(name = "id_tipo_vinculacion")
-    private tipo_vinculacion Tipo_vinculacion;
 
+    @Column(nullable = false, length = 100)
+    private String nombre;
 
-    @ManyToOne
-    @JoinColumn(name = "id_tipo_documento")
-    private tipo_documento tipo_documento;
-    //crear fk secretaria
-    @ManyToOne
-    @JoinColumn(name = "secretaria_id")
-    private secretarias secretarias;
+    @Column(name = "es_administrador", nullable = false)
+    private boolean esAdministrador;
 
-    @OneToOne
-    @JoinColumn(name = "id_funcionario")
-    private Funcionario funcionario;
+    @OneToMany(mappedBy = "usuario")
+    private List<Equipo> equiposRegistrados;
 
-
-
-
-        }
+    @OneToMany(mappedBy = "tecnico")
+    private List<Mantenimiento> mantenimientosRealizados;
+}

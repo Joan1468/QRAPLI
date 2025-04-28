@@ -6,15 +6,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
 
-@Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
+
+
 public interface UsuarioRepository {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private
 
 }

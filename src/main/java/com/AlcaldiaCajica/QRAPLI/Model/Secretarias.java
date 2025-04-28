@@ -5,8 +5,8 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "tipo_vinculacion")
-public class tipo_vinculacion {
+@Table(name = "secretarias")
+public class Secretarias {
     @Id
     private Long id;
 
@@ -16,6 +16,9 @@ public class tipo_vinculacion {
     @Column(length = 500)
     private String descripcion;
 
-    @OneToMany(mappedBy = "tipoVinculacion")
+    @OneToMany(mappedBy = "secretaria")
     private List<Funcionario> funcionarios;
+
+    @OneToMany(mappedBy = "secretaria")
+    private List<Asignacion> asignaciones;
 }

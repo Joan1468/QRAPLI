@@ -1,49 +1,51 @@
 package com.AlcaldiaCajica.QRAPLI.Model;
 
 import jakarta.persistence.*;
-import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
+@Table(name = "inventarios")
 public class Inventarios {
-    private Long id_inventario;
-    private String Serial;
+    @Id
+    private Long id;
+
+    @Column(nullable = false, unique = true, length = 50)
+    private String serial;
+
+    @Column(nullable = false, length = 100)
+    private String modelo;
+
+    @Column(name = "fecha_adquisicion")
     private LocalDate fechaAdquisicion;
 
 
+    @Column(length = 500)
+    private String observaciones;
 
     @ManyToOne
-    private tipo_equipo tipo_Equipo;
+    @JoinColumn(name = "marca_id", nullable = false)
+    private Marca marca;
 
     @ManyToOne
-    private Funcionario funcionario;
-    @ManyToOne
-    @JoinColumn(name = "id_estado")
+    @JoinColumn(name = "estado_id", nullable = false)
     private Estado estado;
-    @OneToOne(mappedBy = "Serial")
-    private Equipo equipo;
+
+    @ManyToOne
+    @JoinColumn(name = "tipo_equipo_id", nullable = false)
+    private Tipo_equipo tipoEquipo;
+
     @ManyToOne
     @JoinColumn(name = "funcionario_id")
-    private Funcionario Funcionario;
-
-    @OneToMany(mappedBy = "inventario")
-    private List<mantenimientos> mantenimientos;
-
-    @OneToOne(mappedBy = "equipo")
-    private hv_equipos id_hojas_vida;
-
-    @OneToMany(mappedBy = "inventario", cascade = CascadeType.ALL)
-    private List<historial> historial;
+    private Funcionario funcionario;
 
     @OneToOne(mappedBy = "inventario", cascade = CascadeType.ALL)
-    private hv_equipos hojaVida;
+    private Hv_equipos hojaVida;
 
+    @OneToMany(mappedBy = "inventario")
+    private List<Mantenimiento> mantenimientos;
 
+    @OneToOne(mappedBy = "equipo")
+    private Asignacion asignacion;
 }

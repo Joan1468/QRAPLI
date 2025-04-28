@@ -1,10 +1,7 @@
 package com.AlcaldiaCajica.QRAPLI.Model;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.*;
-
 import java.util.List;
 
 @Entity
@@ -13,12 +10,16 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Table(name = "estado") // Minúscula para la tabla
 public class Estado {
-private int id_Estado;
-private String Bueno;
-private String Regular;
-private String Malo;
 
+    @Id
+    private int id; // ID genérico, más limpio
+
+    @Column(nullable = false, length = 100)
+    private String descripcion; // Ejemplo: Bueno, Regular o Malo
+
+    // Relaciones
     @OneToMany(mappedBy = "estado", cascade = CascadeType.ALL)
-    private List<Inventarios> Inventarios;
+    private List<Inventarios> inventarios; // Referencia correcta (minúscula en el atributo)
 }

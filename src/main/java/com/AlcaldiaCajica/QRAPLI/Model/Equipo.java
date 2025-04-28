@@ -1,44 +1,44 @@
 package com.AlcaldiaCajica.QRAPLI.Model;
 
 import jakarta.persistence.*;
-
+import lombok.*;
 import java.util.List;
 
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Table(name = "equipo") // Estándar en minúsculas para base de datos
 public class Equipo {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, length = 255)
     private String nombreEquipo;
 
+    // Relaciones
+    @ManyToOne
+    @JoinColumn(name = "tipo_equipo_id", nullable = false)
+    private Tipo_equipo tipoEquipo;
 
     @ManyToOne
-    @JoinColumn(name = "tipo_equipo_id")
-    private tipo_equipo tipoEquipo;
-
-    @ManyToOne
-    @JoinColumn(name = "estado_id")
+    @JoinColumn(name = "estado_id", nullable = false)
     private Estado estado;
 
     @ManyToOne
-    @JoinColumn(name = "marca_portatil_id", nullable = true)
-    private Marcaportatil marcaPortatil;
-
-    @ManyToOne
-    @JoinColumn(name = "marca_servidor_id", nullable = true)
-    private MarcaServidor marcaServidor;
-
-    // Repite lo mismo para otras marcas (MarcaImpresora, MarcaRouter, etc.)
-
-    @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario; // quién lo registró
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuario; // Quién registró el equipo
 
     @OneToOne(mappedBy = "equipo", cascade = CascadeType.ALL)
-    private hojas_vida_equipos hojaVida;
+    private Hv_equipos hojaVida; // Hoja de vida asociada (correcto en mayúscula inicial)
 
     @OneToMany(mappedBy = "equipo", cascade = CascadeType.ALL)
-    private List<asignacion> asignaciones;
+    private List<Asignacion> asignaciones; // Todas las asignaciones que tiene el equipo
 
-    // Si lo usas para generar PDF con QR
+    // Para el QR
+    @Column(length = 500)
     private String qrCodeUrl;
 }
